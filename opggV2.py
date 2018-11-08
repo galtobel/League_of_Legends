@@ -6,8 +6,9 @@ import os
 from string import ascii_lowercase
 
 def make_soup(get_url):
+"""Here we are using the BeautifulSoup library to search for the classes relevant to our table metrics."""
     thepage = urllib.request.urlopen(get_url)
-    soupdata = BeautifulSoup(thepage, "html.parser")
+    soupdata = BeautifulSoup(thepage, "html.parser") # This is difficult to read but having the documentation open would be a great resource
     get_rank = soupdata.findAll('td', {"class" : "ranking-table__cell ranking-table__cell--rank"})
     get_summoner_name = soupdata.findAll('td', {"class" : "ranking-table__cell ranking-table__cell--summoner"})
     get_tier = soupdata.findAll('td', {"class" : "ranking-table__cell ranking-table__cell--tier"})
@@ -16,6 +17,7 @@ def make_soup(get_url):
     return get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr)
 
 def get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr):
+"""We could take this a step further once OP.GG fixes a few bugs. Right now this only works on the NA server but next patch should fix bugs when loading the page"""
     rank, summoner_name, tier, lp, wr = [0,0,0,0,0]
     while (rank < len(get_rank)) and (summoner_name < len(get_summoner_name)) and (tier < len(get_tier)) and (lp < len(get_LP)) and (wr < len(get_wr)):
         rank_list = []
@@ -29,7 +31,7 @@ def get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr):
         tier_list = []
         contains3 = get_tier[tier]
         tier += 1
-        tier_list.append(re.sub('\s+','',contains3.text))
+        tier_list.append(re.sub('\s+','',contains3.text)) # re.sub might be a bit difficult to read but I am still testing with regex once I release the full version. This is just getting rid delimiters in the text.
         lp_list = []
         contains4 = get_LP[lp]
         lp += 1
@@ -41,6 +43,6 @@ def get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr):
         print(rank_list + summoner_name_list + tier_list + lp_list + wr_list)
 
 def url():
-    get_url = "http://na.op.gg/ranking/ladder/page=1"
+    get_url = "http://na.op.gg/ranking/ladder/page=1" # It works for all pages but it's messy until op.gg updates. I will leave it at 1 for now and create loop in the full version.
     make_soup(get_url)
 url()
