@@ -1,4 +1,6 @@
 import urllib
+import pymysql
+import pandas as pd
 import re
 import urllib.request
 from bs4 import BeautifulSoup
@@ -19,29 +21,26 @@ def make_soup(get_url):
 def get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr):
     """We could take this a step further once OP.GG fixes a few bugs. Right now this only works on the NA server but next patch should fix bugs when loading the page"""
     rank, summoner_name, tier, lp, wr = [0,0,0,0,0]
+    rank_list, summoner_name_list, tier_list, lp_list, wr_list= [],[],[],[],[]
     while (rank < len(get_rank)) and (summoner_name < len(get_summoner_name)) and (tier < len(get_tier)) and (lp < len(get_LP)) and (wr < len(get_wr)):
-        rank_list = []
         contains1 = get_rank[rank]
         rank += 1
         rank_list.append(contains1.text)
-        summoner_name_list = []
         contains2 = get_summoner_name[summoner_name]
         summoner_name += 1
         summoner_name_list.append(contains2.span.text)
-        tier_list = []
         contains3 = get_tier[tier]
         tier += 1
         tier_list.append(re.sub('\s+','',contains3.text)) # re.sub might be a bit difficult to read but I am still testing with regex once I release the full version. This is just getting rid delimiters in the text.
-        lp_list = []
         contains4 = get_LP[lp]
         lp += 1
         lp_list.append(re.sub('\s+','',contains4.text))
-        wr_list = []
         contains5 = get_wr[wr]
         wr += 1
         wr_list.append(re.sub('\s+','',contains5.div.span.text))
-        leaderboard_table = tuple(rank_list + summoner_name_list + tier_list + lp_list + wr_list)
-        print(leaderboard_table)
+    #print(summoner_name_list)    
+    df = pd.DataFrame({'rank_num' : rank_list, 'summoner_name' : summoner_name_list, 'tier' : tier_list, 'current_LP' : lp_list, 'win_rate' : wr_list})
+    print(df)
 
 def url():
     get_url = "http://na.op.gg/ranking/ladder/page=1" # It works for all pages but it's messy until op.gg updates. I will leave it at 1 for now and create loop in the full version.
