@@ -40,7 +40,8 @@ def get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr):
         contains5 = get_wr[wr]
         wr += 1
         wr_list.append(re.sub('\s+','',contains5.div.span.text))
-        print(rank_list + summoner_name_list + tier_list + lp_list + wr_list)
+        leaderboard_table = rank_list + summoner_name_list + tier_list + lp_list + wr_list
+        print(leaderboard_table)
 
 def url():
     get_url = "http://na.op.gg/ranking/ladder/page=1" # It works for all pages but it's messy until op.gg updates. I will leave it at 1 for now and create loop in the full version.
