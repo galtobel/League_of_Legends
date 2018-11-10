@@ -40,7 +40,7 @@ def get_data(get_rank,get_summoner_name,get_tier,get_LP,get_wr):
         contains5 = get_wr[wr]
         wr += 1
         wr_list.append(re.sub('\s+','',contains5.div.span.text))
-        leaderboard_table = rank_list + summoner_name_list + tier_list + lp_list + wr_list
+        leaderboard_table = tuple(rank_list + summoner_name_list + tier_list + lp_list + wr_list)
         print(leaderboard_table)
 
 def url():
