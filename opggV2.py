@@ -5,7 +5,7 @@ import re
 import urllib.request
 from bs4 import BeautifulSoup
 import os
-from string import ascii_lowercase
+#from string import ascii_lowercase
 
 def user():
     region_input = input("Welcome! This is a simple script that scrapes op.gg for the top 2000 players across each region. All you need to do is input what region you will like (NA,KR,JP,EUW,EUNE,OCE,BR,LAS,LAN,RU,TR)")
