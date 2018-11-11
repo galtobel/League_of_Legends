@@ -37,7 +37,7 @@ def user():
         post_url = "http://lan.op.gg/ranking/ladder/page="
     
     elif region_input == "RU":
-        post_url = "http://ru.op.gg/ranking/ladder/page=1"
+        post_url = "http://ru.op.gg/ranking/ladder/page="
     
     elif region_input == "TR":
         post_url = "http://tr.op.gg/ranking/ladder/page="
@@ -45,8 +45,6 @@ def user():
     else:
         None
     return url(post_url)
-
-user()
 
 def make_soup(get_url):
     """Here we are using the BeautifulSoup library to search for the classes relevant to our table metrics."""
@@ -101,3 +99,4 @@ def url(post_url):
     for page in pages:
         get_url = post_url + page
         make_soup(get_url)
+user()
