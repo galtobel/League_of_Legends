@@ -1,0 +1,3 @@
+The Python program is a great way to scrape op.gg across desired regions and get the top players on the leaderboard.
+This is a great way to sort the leaderboard by winrate so you can see what players are doing.
+All you have to do is run the program, it will ask you what region you want, and then save an excel file for you.
