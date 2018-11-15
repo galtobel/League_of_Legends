@@ -88,7 +88,9 @@ def create_dataframe(resultset): # We are passing our dict global var from get_d
     df = df.reset_index(drop=True)
     #print(df)
     #os.chdir(r"C:/Users/Root/Desktop/LOL")
-    df.to_excel("LeagueTest.xlsx",index=False) # We can send our user input here and create logic statements and fully automate the process
+    df.to_csv("_region.csv",index=False) 
+    # We can send our user input here and create logic statements and fully automate the process
+    # We have to change our encoding to utf_8_sig for non English summoner names => df.to_csv("kr_region.csv",index=False,encoding = 'utf_8_sig') 
 
 
 def url(post_url):
